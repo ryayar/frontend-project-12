@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "workspaces": ["frontend"],
+  "proxy": "http://0.0.0.0:5001",
   "scripts": {
     "dev": "vite",
     "start": "npx start-server -s ./dist",

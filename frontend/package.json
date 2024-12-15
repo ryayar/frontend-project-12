@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "workspaces": ["chat-app"],
+  "workspaces": ["frontend"],
   "scripts": {
     "dev": "vite",
     "start": "npx start-server -s ./dist",
-    "build": "vite build --prefix chat-app",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

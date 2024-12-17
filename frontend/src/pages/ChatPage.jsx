@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChannels } from '../slices/channelsSlice';
 import { fetchMessages } from '../slices/messagesSlice';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import ChannelsList from '../components/ChannelsList';
+import MessagesWindow from '../components/MessagesWindow';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -20,21 +23,24 @@ const ChatPage = () => {
   }
 
   return (
-    <div>
-      <h1>Каналы</h1>
-      <ul>
-        {channels.map((channel) => (
-          <li key={channel.id}>{channel.name}</li>
-        ))}
-      </ul>
-
-      <h2>Сообщения</h2>
-      <ul>
-        {messages.map((message) => (
-          <li key={message.id}>{message.text || message.body}</li>
-        ))}
-      </ul>
-    </div>
+    <Container fluid className="vh-100 d-flex flex-column">
+      <Row className="bg-light py-2 shadow-sm">
+        <Col>
+          <h4 className="m-0">Hexlet Chat</h4>
+        </Col>
+        <Col xs="auto">
+          <Button variant="primary">Выйти</Button>
+        </Col>
+      </Row>
+      <Row className="flex-grow-1">
+        <Col md={3} className="bg-white border-end p-3">
+          <ChannelsList channels={channels} />
+        </Col>
+        <Col md={9} className="p-3 bg-white">
+          <MessagesWindow messages={messages} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

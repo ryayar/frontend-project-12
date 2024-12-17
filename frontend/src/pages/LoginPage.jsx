@@ -15,14 +15,14 @@ const LoginPage = () => {
 
   const initialValues = { username: '', password: '' };
 
-  const handleSubmit = async(values) => {
-    await axios.post('/api/v1/login', values)
+  const handleSubmit = (values) => {
+    return axios.post('/api/v1/login', values)
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         navigate('/');
       })
       .catch(() => {
-        setErrorMessage(`Неверные имя пользователя или пароль`);
+        setErrorMessage('Неверные имя пользователя или пароль');
       });
   };
 

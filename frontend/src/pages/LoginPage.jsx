@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginPage = () => {
-  // Схема валидации
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object({
     username: Yup.string().required('Введите имя пользователя'),
     password: Yup.string().required('Введите пароль'),
   });
 
-  // Начальные значения
   const initialValues = { username: '', password: '' };
 
-  // Обработчик формы
-  const handleSubmit = (values) => {
-    console.log('Форма отправлена:', values);
+  const handleSubmit = async(values) => {
+    await axios.post('/api/v1/login', values)
+      .then((response) => {
+        localStorage.setItem('token', response.data.token);
+        navigate('/');
+      })
+      .catch(() => {
+        setErrorMessage(`Неверные имя пользователя или пароль`);
+      });
   };
 
   return (
     <div>
-      <h1>Вход</h1>
+      <h1>Авторизация</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -37,6 +46,8 @@ const LoginPage = () => {
             <Field id="password" name="password" type="password" />
             <ErrorMessage name="password" component="div" />
           </div>
+
+          {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
 
           <button type="submit">Войти</button>
         </Form>

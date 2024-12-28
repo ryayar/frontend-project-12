@@ -1,3 +1,57 @@
+# Node.js
 node_modules/
-public/
+dist/
+build/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+.pnpm-debug.log*
+
+# IDE PyCharm
 .idea/
+*.iml
+out/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Vite
+.vite/
+
+# ESLint and Prettier
+.eslintcache
+*.eslintcache
+
+# Typescript (если используется)
+*.tsbuildinfo
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor settings
+*.sublime-workspace
+*.sublime-project
+.vscode/
+*.code-workspace
+
+# Test outputs
+jest/
+jest-cache/
+jest-config/
+.nyc_output/
+
+# Miscellaneous
+*.swp
+*.swo

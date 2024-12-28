@@ -12,12 +12,10 @@ const channelSlice = createSlice({
   name: 'channel',
   initialState,
   reducers: {
-    setSelectedChannel: (state, action) => {
-      return {
-        ...state,
-        selectedChannel: action.payload,
-      };
-    },
+    setSelectedChannel: (state, action) => ({
+      ...state,
+      selectedChannel: action.payload,
+    }),
   },
 });
 

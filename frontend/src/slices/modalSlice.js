@@ -11,20 +11,17 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     setModal: (state, action) => {
-      const data = action.payload;
-      state.activeModal = data.activeModal;
-      state.editedChannelId = data.editedChannelId;
-      state.editedChannelName = data.editedChannelName;
-      return state;
+      const { activeModal, editedChannelId, editedChannelName } = action.payload;
+      return {
+        ...state,
+        activeModal,
+        editedChannelId,
+        editedChannelName,
+      };
     },
   },
 });
 
-export const {
-  setModal,
-  setEditedChannelId,
-  setShowModal,
-  setHideModal,
-} = modalSlice.actions;
+export const { setModal } = modalSlice.actions;
 
 export default modalSlice.reducer;

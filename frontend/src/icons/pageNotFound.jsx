@@ -1,10 +1,9 @@
-const PageNotFound = (props) => (
+const PageNotFound = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="_2"
     data-name={2}
     viewBox="0 0 900 900"
-    {...props}
   >
     <defs>
       <clipPath id="clip-path">

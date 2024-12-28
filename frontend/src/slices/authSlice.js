@@ -11,22 +11,30 @@ const authSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       const token = action.payload;
-      state.token = token;
-
       localStorage.setItem('token', token);
+
+      return {
+        ...state,
+        token,
+      };
     },
     setUsername: (state, action) => {
       const username = action.payload;
-      state.username = username;
-
       localStorage.setItem('username', username);
-    },
-    deleteAuthorization: (state) => {
-      state.token = null;
-      state.username = null;
 
+      return {
+        ...state,
+        username,
+      };
+    },
+    deleteAuthorization: () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+
+      return {
+        token: null,
+        username: null,
+      };
     },
   },
 });

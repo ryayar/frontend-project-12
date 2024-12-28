@@ -13,8 +13,10 @@ const channelSlice = createSlice({
   initialState,
   reducers: {
     setSelectedChannel: (state, action) => {
-      state.selectedChannel = action.payload;
-      return state;
+      return {
+        ...state,
+        selectedChannel: action.payload,
+      };
     },
   },
 });

@@ -35,7 +35,7 @@ const ru = {
 
   errorPage: {
     pageNotFound: 'Страница не найдена',
-    butYouCanGo: 'Но вы можете перейти',
+    butYouCanGo: 'Но вы можете перейти ',
     toMainPage: 'на главную страницу',
   },
 

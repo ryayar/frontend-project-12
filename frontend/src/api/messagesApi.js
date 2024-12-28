@@ -30,8 +30,6 @@ const messagesApi = createApi({
 export const {
   useGetMessagesQuery,
   useAddMessageMutation,
-  useEditMessageMutation,
-  useRemoveMessageMutation,
 } = messagesApi;
 
 export default messagesApi;

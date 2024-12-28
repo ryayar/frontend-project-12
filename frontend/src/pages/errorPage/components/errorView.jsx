@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import PageNotFound from '../../../images/pageNotFound';
+import PageNotFound from '../../../icons/pageNotFound.jsx';
 import { routes } from '../../../utils';
 
 const ErrorView = () => {

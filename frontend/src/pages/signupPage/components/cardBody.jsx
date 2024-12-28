@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import SignupImage from '../../../images/signup.jpg';
+import SignupImage from '../../../icons/signup.jpg';
 import SignupForm from './signupForm';
 
 const CardBody = () => {

@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as MainProvider } from 'react-redux';
 import ru from './locales/ru';
+import en from './locales/en';
 import ChatPage from './pages/chatPage/chatPage.jsx';
 import LoginPage from './pages/loginPage/loginPage.jsx';
 import SignupPage from './pages/signupPage/signupPage.jsx';
@@ -22,6 +23,9 @@ const App = () => {
       resources: {
         ru: {
           translation: ru,
+        },
+        en: {
+          translation: en,
         },
       },
       fallbackLng: 'ru',

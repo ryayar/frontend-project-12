@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -14,8 +13,7 @@ const channelSlice = createSlice({
   initialState,
   reducers: {
     setSelectedChannel: (state, action) => {
-      const channel = action.payload;
-      state.selectedChannel = channel;
+      state.selectedChannel = action.payload;
       return state;
     },
   },

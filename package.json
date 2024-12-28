@@ -21,5 +21,6 @@
   "homepage": "https://github.com/ryayar/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4"
-  }
+  },
+  "keywords": []
 }

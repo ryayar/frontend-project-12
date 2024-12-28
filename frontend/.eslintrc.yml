@@ -6,7 +6,7 @@ overrides:
       - '**/*.{js,jsx}'
     languageOptions:
       ecmaVersion: 2020
-      globals: 
+      globals:
         browser: true
       parserOptions:
         ecmaVersion: latest
@@ -27,8 +27,18 @@ overrides:
         - allowConstantExport: true
       react/prop-types: off
 
-extends:
-  - plugin:react/recommended
-  - plugin:react/jsx-runtime
-  - plugin:react-hooks/recommended
-  - eslint:recommended
+  - files:
+      - src/icons/pageNotFound.jsx
+      - src/icons/sendButton.jsx
+    rules:
+      react/jsx-props-no-spreading: off
+
+  - files:
+      - src/slices/*.js
+    rules:
+      no-param-reassign: off
+
+  - files:
+      - vite.config.js
+    rules:
+      import/no-extraneous-dependencies: off

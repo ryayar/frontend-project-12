@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import SendButton from '../../../icons/sendButton';
-import { useAddMessageMutation } from '../../../api/messagesApi';
+import { useAddMessageMutation } from '../../../utils/apiClient.js';
 import { getSelectedChannel, getUsername } from '../../../slices/selectors';
 
 const SendForm = () => {

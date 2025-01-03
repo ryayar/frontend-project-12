@@ -8,7 +8,7 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
 import { routes } from '../../../utils';
 import { setModal } from '../../../slices/modalSlice.js';
-import channelsApi, { useGetChannelsQuery } from '../../../api/channelsApi.js';
+import apiClient, { useGetChannelsQuery } from '../../../utils/apiClient.js';
 import { setSelectedChannel } from '../../../slices/channelSlice.js';
 import { deleteAuthorization } from '../../../slices/authSlice.js';
 import { getSelectedChannel } from '../../../slices/selectors.js';
@@ -42,19 +42,19 @@ const Channels = () => {
 
   useEffect(() => {
     const addChannel = (newChannel) => {
-      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+      dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => {
         draftChannels.push(newChannel);
       }));
     };
 
     const deleteChannel = ({ id }) => {
-      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+      dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
         draftChannels.filter((channel) => channel.id !== id)
       )));
     };
 
     const renameChannel = (editedChannel) => {
-      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+      dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
         draftChannels
           .filter((channel) => channel.id !== editedChannel.id)
           .concat(editedChannel)

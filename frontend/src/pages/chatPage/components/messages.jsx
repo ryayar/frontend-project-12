@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
-import messagesApi, { useGetMessagesQuery } from '../../../api/messagesApi';
+import apiClient, { useGetMessagesQuery } from '../../../utils/apiClient.js';
 import { getSelectedChannel } from '../../../slices/selectors';
 
 const Messages = ({ children }) => {
@@ -14,7 +14,7 @@ const Messages = ({ children }) => {
 
   useEffect(() => {
     const updateMessages = (newMessage) => {
-      dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
+      dispatch(apiClient.util.updateQueryData('getMessages', undefined, (draftMessages) => {
         draftMessages.push(newMessage);
       }));
     };

@@ -1,8 +1,8 @@
-import channelsApi from '../api/channelsApi';
+import apiClient from '../utils/apiClient.js';
 
 const getSelectedChannelId = (state) => state.selectedChannel.selectedChannel.id;
 
-const getChannels = (state) => channelsApi.endpoints.getChannels.select()(state).data;
+const getChannels = (state) => apiClient.endpoints.getChannels.select()(state).data;
 
 const getEditedChannelId = (state) => state.modal.editedChannelId;
 

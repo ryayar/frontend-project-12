@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import axios, { isAxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import { paths, routes } from '../../../utils';
+import { routes } from '../../../utils';
 import { setToken, setUsername } from '../../../slices/authSlice';
+import { useLoginMutation } from '../../../utils/apiClient.js';
 
 const AuthForm = () => {
   const { t } = useTranslation();
@@ -14,6 +14,7 @@ const AuthForm = () => {
   const redirect = useNavigate();
   const dispatch = useDispatch();
   const input = useRef(null);
+  const [login] = useLoginMutation();
 
   useEffect(() => {
     if (error) {
@@ -28,34 +29,16 @@ const AuthForm = () => {
   }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const path = paths.login();
-    await axios.post(path, values)
-      .then(({ data }) => {
-        if (data.token) {
-          const {
-            token,
-            username,
-          } = data;
-
-          dispatch(setToken(token));
-          dispatch(setUsername(username));
-
-          redirect(routes.chat);
-        } else {
-          setError('AuthError');
-        }
-      })
-      .catch((err) => {
-        if (isAxiosError(err)) {
-          if (err.response.status === 401) {
-            setError('AuthError');
-          }
-        } else {
-          console.log(err);
-          toast(t('errors.networkError'));
-        }
-        setSubmitting(false);
-      });
+    try {
+      const { token, username } = await login(values).unwrap();
+      dispatch(setToken(token));
+      dispatch(setUsername(username));
+      redirect(routes.chat);
+    } catch (err) {
+      setError(t('errors.authError'));
+      setSubmitting(false);
+      toast(t('errors.networkError'));
+    }
   };
 
   const formik = useFormik({

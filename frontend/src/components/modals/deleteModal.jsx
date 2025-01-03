@@ -2,7 +2,7 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { useRemoveChannelMutation } from '../../api/channelsApi';
+import { useRemoveChannelMutation } from '../../utils/apiClient.js';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { getSelectedChannelId } from '../../slices/selectors';
 

@@ -1,4 +1,3 @@
-import axios, { isAxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Tooltip from './tooltip';
 import { setToken, setUsername } from '../../../slices/authSlice';
-import { getNewUserSchema, paths, routes } from '../../../utils';
+import { getNewUserSchema, routes } from '../../../utils';
+import { useSignupMutation } from '../../../utils/apiClient.js';
 
 const SignupForm = () => {
   const { t } = useTranslation();
@@ -16,6 +16,7 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const schema = getNewUserSchema(t);
   const input = useRef(null);
+  const [signup] = useSignupMutation();
 
   useEffect(() => {
     if (error) {
@@ -30,35 +31,19 @@ const SignupForm = () => {
   }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const path = paths.signup();
-    await axios.post(path, values)
-      .then(({ data }) => {
-        if (data.token) {
-          const {
-            token,
-            username,
-          } = data;
-
-          dispatch(setToken(token));
-          dispatch(setUsername(username));
-
-          redirect(routes.chat);
-        } else {
-          setError('SignupError');
-        }
-      })
-      .catch((err) => {
-        if (isAxiosError(err)) {
-          if (err.response.status === 409) {
-            setError(t('errors.signupError'));
-          } else {
-            setError(err.message);
-          }
-        } else {
-          setError(t('errors.networkError'));
-        }
-        setSubmitting(false);
-      });
+    try {
+      const { token, username } = await signup(values).unwrap();
+      dispatch(setToken(token));
+      dispatch(setUsername(username));
+      redirect(routes.chat);
+    } catch (err) {
+      if (err.status === 409) {
+        setError(t('errors.signupError'));
+      } else {
+        setError(t('errors.networkError'));
+      }
+      setSubmitting(false);
+    }
   };
 
   const formik = useFormik({

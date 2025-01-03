@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { paths } from './index.js';
-import { toast } from 'react-toastify';
 
 const getAuthHeader = (headers, { getState }) => {
   const { auth } = getState();
@@ -18,16 +17,7 @@ const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
     prepareHeaders: getAuthHeader,
   });
 
-  const result = await baseQuery(args, api, extraOptions);
-
-  if (result.error) {
-    const { error } = result;
-    const errorMessage = error.data?.message || 'Произошла ошибка при выполнении запроса';
-
-    toast.error(errorMessage);
-  }
-
-  return result;
+  return baseQuery(args, api, extraOptions);
 };
 
 const apiClient = createApi({

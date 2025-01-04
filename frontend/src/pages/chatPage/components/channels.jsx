@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { io } from 'socket.io-client';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
 import { routes } from '../../../store/utils';
@@ -12,7 +10,7 @@ import apiClient, { useGetChannelsQuery } from '../../../store/utils/apiClient.j
 import { setSelectedChannel } from '../../../store/slices/channelSlice.js';
 import { deleteAuthorization } from '../../../store/slices/authSlice.js';
 import { getSelectedChannel } from '../../../store/slices/selectors.js';
-import { SocketContext } from '../../../App.jsx';
+import { SocketContext } from '../../../store/utils/socketService.js';
 
 const Channels = () => {
   const { t } = useTranslation();

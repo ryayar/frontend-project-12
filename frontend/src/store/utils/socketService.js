@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { io } from 'socket.io-client';
 
 class SocketService {
@@ -39,4 +40,5 @@ class SocketService {
 }
 
 const socketService = new SocketService();
-export default socketService;
+export const SocketContext = createContext(null);
+export { socketService, SocketContext };

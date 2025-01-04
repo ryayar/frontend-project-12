@@ -1,3 +1,4 @@
+import { createContext, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
@@ -15,20 +16,17 @@ import ErrorPage from './pages/errorPage/errorPage.jsx';
 import { routes } from './store/utils';
 import ProtectedRoute from './components/protectedRoute.jsx';
 import store from './store/utils/store.js';
-import socketService from './store/utils/socketService.js';
-import { createContext, useEffect } from 'react';
+import { SocketContext, socketService } from './store/utils/socketService.js';
 
-export const SocketContext = createContext(null);
+socketService.connect();
 
 const App = () => {
   useEffect(() => {
-    const socket = socketService.connect();
-
     return () => {
       socketService.disconnect();
     };
   }, []);
-  
+
   i18next
     .use(initReactI18next)
     .init({

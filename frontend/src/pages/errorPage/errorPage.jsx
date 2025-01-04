@@ -1,12 +1,10 @@
-import PageContainer from '../../components/pageContainer';
-import Navbar from '../../components/navbar';
+import Layout from '../../components/layout';
 import ErrorView from './components/errorView';
 
 const ErrorPage = () => (
-  <PageContainer>
-    <Navbar />
+  <Layout>
     <ErrorView />
-  </PageContainer>
+  </Layout>
 );
 
 export default ErrorPage;

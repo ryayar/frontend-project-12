@@ -5,9 +5,9 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Tooltip from './tooltip';
-import { setToken, setUsername } from '../../../slices/authSlice';
-import { getNewUserSchema, routes } from '../../../utils';
-import { useSignupMutation } from '../../../utils/apiClient.js';
+import { setToken, setUsername } from '../../../store/slices/authSlice';
+import { getNewUserSchema, routes } from '../../../store/utils';
+import { useSignupMutation } from '../../../store/utils/apiClient.js';
 
 const SignupForm = () => {
   const { t } = useTranslation();

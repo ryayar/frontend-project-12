@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useEditChannelMutation } from '../../utils/apiClient.js';
-import { setSelectedChannel } from '../../slices/channelSlice';
+import { useEditChannelMutation } from '../../store/utils/apiClient.js';
+import { setSelectedChannel } from '../../store/slices/channelSlice';
 
 const RenameModal = ({ data }) => {
   const {

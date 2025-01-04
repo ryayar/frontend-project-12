@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import { routes } from '../../../utils';
-import { setToken, setUsername } from '../../../slices/authSlice';
-import { useLoginMutation } from '../../../utils/apiClient.js';
+import { routes } from '../../../store/utils';
+import { setToken, setUsername } from '../../../store/slices/authSlice';
+import { useLoginMutation } from '../../../store/utils/apiClient.js';
 
 const AuthForm = () => {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ const AuthForm = () => {
           id="username"
           name="username"
           type="text"
-          className={`form-control ${error ? 'is-invalid' : null}`}
+          className={`form-control ${error ? 'is-invalid' : ''}`}
           placeholder={t('loginPage.yourNick')}
           onChange={formik.handleChange}
           value={formik.values.username}
@@ -70,7 +70,7 @@ const AuthForm = () => {
           id="password"
           name="password"
           type="password"
-          className={`form-control ${error ? 'is-invalid' : null}`}
+          className={`form-control ${error ? 'is-invalid' : ''}`}
           placeholder={t('loginPage.password')}
           onChange={formik.handleChange}
           value={formik.values.password}

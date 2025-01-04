@@ -12,11 +12,23 @@ import ChatPage from './pages/chatPage/chatPage.jsx';
 import LoginPage from './pages/loginPage/loginPage.jsx';
 import SignupPage from './pages/signupPage/signupPage.jsx';
 import ErrorPage from './pages/errorPage/errorPage.jsx';
-import { routes } from './utils';
-import ProtectedRoute from './utils/ProtectedRoute.jsx';
-import store from './store/store.js';
+import { routes } from './store/utils';
+import ProtectedRoute from './components/protectedRoute.jsx';
+import store from './store/utils/store.js';
+import socketService from './store/utils/socketService.js';
+import { createContext, useEffect } from 'react';
+
+export const SocketContext = createContext(null);
 
 const App = () => {
+  useEffect(() => {
+    const socket = socketService.connect();
+
+    return () => {
+      socketService.disconnect();
+    };
+  }, []);
+  
   i18next
     .use(initReactI18next)
     .init({
@@ -44,23 +56,25 @@ const App = () => {
   filter.add(filter.getDictionary('ru'));
 
   return (
-    <MainProvider store={store}>
-      <RollbarProvider config={rollbarConfig}>
-        <ErrorBoundary>
-          <BrowserRouter>
-            <Routes>
-              <Route path={routes.login} element={<LoginPage />} />
-              <Route path={routes.signup} element={<SignupPage />} />
-              <Route element={<ProtectedRoute />}>
-                <Route path={routes.chat} element={<ChatPage />} />
-              </Route>
-              <Route path={routes.error} element={<ErrorPage />} />
-            </Routes>
-            <ToastContainer />
-          </BrowserRouter>
-        </ErrorBoundary>
-      </RollbarProvider>
-    </MainProvider>
+    <SocketContext.Provider value={socketService}>
+      <MainProvider store={store}>
+        <RollbarProvider config={rollbarConfig}>
+          <ErrorBoundary>
+            <BrowserRouter>
+              <Routes>
+                <Route path={routes.login} element={<LoginPage />} />
+                <Route path={routes.signup} element={<SignupPage />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path={routes.chat} element={<ChatPage />} />
+                </Route>
+                <Route path={routes.error} element={<ErrorPage />} />
+              </Routes>
+              <ToastContainer />
+            </BrowserRouter>
+          </ErrorBoundary>
+        </RollbarProvider>
+      </MainProvider>
+    </SocketContext.Provider>
   );
 };
 

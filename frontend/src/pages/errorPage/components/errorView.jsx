@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import PageNotFound from '../../../icons/pageNotFound.jsx';
-import { routes } from '../../../utils';
+import { routes } from '../../../store/utils';
+import { Link } from 'react-router-dom';
 
 const ErrorView = () => {
   const { t } = useTranslation();
@@ -11,9 +12,9 @@ const ErrorView = () => {
       <h1 className="h4 text-muted">{t('errorPage.pageNotFound')}</h1>
       <p className="text-muted">
         {t('errorPage.butYouCanGo')}
-        <a href={routes.chat}>
+        <Link to={routes.chat}>
           {t('errorPage.toMainPage')}
-        </a>
+        </Link>
       </p>
     </div>
   );

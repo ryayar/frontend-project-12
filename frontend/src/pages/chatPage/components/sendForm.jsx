@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import SendButton from '../../../icons/sendButton';
-import { useAddMessageMutation } from '../../../utils/apiClient.js';
-import { getSelectedChannel, getUsername } from '../../../slices/selectors';
+import { useAddMessageMutation } from '../../../store/utils/apiClient.js';
+import { getSelectedChannel, getUsername } from '../../../store/slices/selectors';
 
 const SendForm = () => {
   const { t } = useTranslation();

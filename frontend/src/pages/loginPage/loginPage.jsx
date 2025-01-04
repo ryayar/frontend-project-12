@@ -1,17 +1,15 @@
-import PageContainer from '../../components/pageContainer';
-import Navbar from '../../components/navbar';
+import Layout from '../../components/layout';
 import CardContainer from '../../components/cardContainer';
 import CardBody from './components/cardBody';
 import CardFooter from './components/cardFooter';
 
 const LoginPage = () => (
-  <PageContainer>
-    <Navbar />
+  <Layout>
     <CardContainer>
       <CardBody />
       <CardFooter />
     </CardContainer>
-  </PageContainer>
+  </Layout>
 );
 
 export default LoginPage;

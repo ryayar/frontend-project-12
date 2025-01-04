@@ -1,17 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
-import { routes } from '../../../utils';
-import { setModal } from '../../../slices/modalSlice.js';
-import apiClient, { useGetChannelsQuery } from '../../../utils/apiClient.js';
-import { setSelectedChannel } from '../../../slices/channelSlice.js';
-import { deleteAuthorization } from '../../../slices/authSlice.js';
-import { getSelectedChannel } from '../../../slices/selectors.js';
+import { routes } from '../../../store/utils';
+import { setModal } from '../../../store/slices/modalSlice.js';
+import apiClient, { useGetChannelsQuery } from '../../../store/utils/apiClient.js';
+import { setSelectedChannel } from '../../../store/slices/channelSlice.js';
+import { deleteAuthorization } from '../../../store/slices/authSlice.js';
+import { getSelectedChannel } from '../../../store/slices/selectors.js';
+import { SocketContext } from '../../../App.jsx';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -33,12 +34,11 @@ const Channels = () => {
       if (error.status === 401) {
         dispatch(deleteAuthorization());
         redirect(routes.login);
-      } else {
-        console.log(error);
-        toast(t('errors.networkError'));
       }
     }
   }, [error, redirect, dispatch, t]);
+
+  const socketService = useContext(SocketContext);
 
   useEffect(() => {
     const addChannel = (newChannel) => {
@@ -61,26 +61,16 @@ const Channels = () => {
       )));
     };
 
-    const socket = io();
-
-    socket.on('newChannel', (payload) => {
-      addChannel(payload);
-    });
-
-    socket.on('removeChannel', (payload) => {
-      deleteChannel(payload);
-    });
-
-    socket.on('renameChannel', (payload) => {
-      renameChannel(payload);
-    });
+    socketService.on('newChannel', addChannel);
+    socketService.on('removeChannel', deleteChannel);
+    socketService.on('renameChannel', renameChannel);
 
     return () => {
-      socket.off('newChannel');
-      socket.off('removeChannel');
-      socket.off('renameChannel');
+      socketService.off('newChannel');
+      socketService.off('removeChannel');
+      socketService.off('renameChannel');
     };
-  }, [dispatch]);
+  }, [socketService, dispatch]);
 
   const handleClickChannel = (channel) => {
     dispatch(setSelectedChannel(channel));

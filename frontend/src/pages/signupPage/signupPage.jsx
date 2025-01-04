@@ -1,15 +1,13 @@
-import PageContainer from '../../components/pageContainer';
-import Navbar from '../../components/navbar';
+import Layout from '../../components/layout.jsx';
 import CardContainer from '../../components/cardContainer';
 import CardBody from './components/cardBody';
 
 const SignupPage = () => (
-  <PageContainer>
-    <Navbar />
+  <Layout>
     <CardContainer>
       <CardBody />
     </CardContainer>
-  </PageContainer>
+  </Layout>
 );
 
 export default SignupPage;

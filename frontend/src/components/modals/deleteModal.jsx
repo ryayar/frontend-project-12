@@ -2,9 +2,9 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { useRemoveChannelMutation } from '../../utils/apiClient.js';
-import { setSelectedChannel } from '../../slices/channelSlice';
-import { getSelectedChannelId } from '../../slices/selectors';
+import { useRemoveChannelMutation } from '../../store/utils/apiClient.js';
+import { setSelectedChannel } from '../../store/slices/channelSlice';
+import { getSelectedChannelId } from '../../store/slices/selectors';
 
 export const DeleteModal = ({ data }) => {
   const {

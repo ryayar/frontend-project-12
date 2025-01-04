@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { io } from 'socket.io-client';
-import apiClient, { useGetMessagesQuery } from '../../../utils/apiClient.js';
-import { getSelectedChannel } from '../../../slices/selectors';
+import apiClient, { useGetMessagesQuery } from '../../../store/utils/apiClient.js';
+import { getSelectedChannel } from '../../../store/slices/selectors';
+import { SocketContext } from '../../../App.jsx';
 
 const Messages = ({ children }) => {
   const { t } = useTranslation();
@@ -12,6 +13,8 @@ const Messages = ({ children }) => {
   const selectedChannel = useSelector(getSelectedChannel);
   const selectedChannelMessages = data.filter(({ channelId }) => channelId === selectedChannel.id);
 
+  const socketService = useContext(SocketContext);
+
   useEffect(() => {
     const updateMessages = (newMessage) => {
       dispatch(apiClient.util.updateQueryData('getMessages', undefined, (draftMessages) => {
@@ -19,14 +22,12 @@ const Messages = ({ children }) => {
       }));
     };
 
-    const socket = io();
+    socketService.on('newMessage', updateMessages);
 
-    socket.on('newMessage', (payload) => {
-      updateMessages(payload);
-    });
-
-    return () => { socket.off('newMessage'); };
-  }, [dispatch]);
+    return () => {
+      socketService.off('newMessage');
+    };
+  }, [socketService, dispatch]);
 
   return (
     <div className="col p-0 h-100">

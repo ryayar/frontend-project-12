@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setModal } from '../../slices/modalSlice';
-import { getNewChannelSchema } from '../../utils';
+import { setModal } from '../../store/slices/modalSlice';
+import { getNewChannelSchema } from '../../store/utils';
 import ModalAdd from './addModal.jsx';
 import ModalRename from './renameModal.jsx';
 import ModalDelete from './deleteModal.jsx';
@@ -10,7 +10,7 @@ import {
   getChannels,
   getEditedChannelId,
   getEditedChannelName,
-} from '../../slices/selectors';
+} from '../../store/slices/selectors';
 
 const ModalsContainer = () => {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { paths } from './index.js';
 import { toast } from 'react-toastify';
+import { paths } from './index.js';
 
 const getAuthHeader = (headers, { getState }) => {
   const { auth } = getState();

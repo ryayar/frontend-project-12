@@ -1,6 +1,6 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { routes } from '../../../store/utils';
-import { Link } from 'react-router-dom';
 
 const CardFooter = () => {
   const { t } = useTranslation();

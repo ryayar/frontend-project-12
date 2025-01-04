@@ -1,4 +1,4 @@
-import { createContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
@@ -21,10 +21,8 @@ import { SocketContext, socketService } from './store/utils/socketService.js';
 socketService.connect();
 
 const App = () => {
-  useEffect(() => {
-    return () => {
-      socketService.disconnect();
-    };
+  useEffect(() => () => {
+    socketService.disconnect();
   }, []);
 
   i18next

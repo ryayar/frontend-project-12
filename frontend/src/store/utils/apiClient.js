@@ -21,7 +21,10 @@ const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
 
   if (result.error) {
-    toast(t('errors.networkError'));
+    const { error } = result;
+    const errorMessage = error.data?.message || 'Произошла ошибка при выполнении запроса';
+
+    toast.error(errorMessage);
   }
 
   return result;

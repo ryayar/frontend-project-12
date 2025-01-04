@@ -40,5 +40,5 @@ class SocketService {
 }
 
 const socketService = new SocketService();
-export const SocketContext = createContext(null);
+const SocketContext = createContext(null);
 export { socketService, SocketContext };

@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { paths, routes } from '../utils/index.js';
 import { deleteAuthorization } from './slices/authSlice.js';
-import { redirect } from 'react-router-dom';
 
 const getAuthHeader = (headers, { getState }) => {
   const { auth } = getState();
@@ -27,7 +27,7 @@ const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
     const errorMessage = error.data?.message || 'Произошла ошибка при выполнении запроса';
 
     toast.error(errorMessage);
-    
+
     if (error.status === 401) {
       const { dispatch } = api;
       dispatch(deleteAuthorization());

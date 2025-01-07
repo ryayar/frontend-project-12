@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useContext, useEffect } from 'react';
-import apiClient, { useGetMessagesQuery } from '../../../store/utils/apiClient.js';
+import apiClient, { useGetMessagesQuery } from '../../../store/apiClient.js';
 import { getSelectedChannel } from '../../../store/slices/selectors';
-import { SocketContext } from '../../../store/utils/socketService.js';
+import { SocketContext } from '../../../utils/socketService.js';
 
 const Messages = ({ children }) => {
   const { t } = useTranslation();

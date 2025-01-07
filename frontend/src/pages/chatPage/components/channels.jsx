@@ -1,23 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
-import { routes } from '../../../store/utils';
 import { setModal } from '../../../store/slices/modalSlice.js';
-import apiClient, { useGetChannelsQuery } from '../../../store/utils/apiClient.js';
 import { setSelectedChannel } from '../../../store/slices/channelSlice.js';
-import { deleteAuthorization } from '../../../store/slices/authSlice.js';
 import { getSelectedChannel } from '../../../store/slices/selectors.js';
-import { SocketContext } from '../../../store/utils/socketService.js';
+import { useGetChannelsQuery } from '../../../store/apiClient.js';
 
 const Channels = () => {
   const { t } = useTranslation();
   const { data, error, isLoading } = useGetChannelsQuery();
   const selectedChannel = useSelector(getSelectedChannel);
   const dispatch = useDispatch();
-  const redirect = useNavigate();
 
   const modals = {
     add: 'add',
@@ -26,49 +20,6 @@ const Channels = () => {
   };
 
   const isClicked = (id) => (id === selectedChannel.id ? 'secondary' : 'light');
-
-  useEffect(() => {
-    if (error) {
-      if (error.status === 401) {
-        dispatch(deleteAuthorization());
-        redirect(routes.login);
-      }
-    }
-  }, [error, redirect, dispatch, t]);
-
-  const socketService = useContext(SocketContext);
-
-  useEffect(() => {
-    const addChannel = (newChannel) => {
-      dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-        draftChannels.push(newChannel);
-      }));
-    };
-
-    const deleteChannel = ({ id }) => {
-      dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
-        draftChannels.filter((channel) => channel.id !== id)
-      )));
-    };
-
-    const renameChannel = (editedChannel) => {
-      dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
-        draftChannels
-          .filter((channel) => channel.id !== editedChannel.id)
-          .concat(editedChannel)
-      )));
-    };
-
-    socketService.on('newChannel', addChannel);
-    socketService.on('removeChannel', deleteChannel);
-    socketService.on('renameChannel', renameChannel);
-
-    return () => {
-      socketService.off('newChannel');
-      socketService.off('removeChannel');
-      socketService.off('renameChannel');
-    };
-  }, [socketService, dispatch]);
 
   const handleClickChannel = (channel) => {
     dispatch(setSelectedChannel(channel));

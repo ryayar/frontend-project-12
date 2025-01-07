@@ -1,4 +1,4 @@
-import apiClient from '../utils/apiClient.js';
+import apiClient from '../apiClient.js';
 
 const getSelectedChannelId = (state) => state.selectedChannel.selectedChannel.id;
 

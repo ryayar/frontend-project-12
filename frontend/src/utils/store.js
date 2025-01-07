@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../slices/authSlice.js';
-import selectedChannelReducer from '../slices/channelSlice.js';
-import modalReducer from '../slices/modalSlice.js';
-import apiClient from './apiClient.js';
+import authReducer from '../store/slices/authSlice.js';
+import selectedChannelReducer from '../store/slices/channelSlice.js';
+import modalReducer from '../store/slices/modalSlice.js';
+import apiClient from '../store/apiClient.js';
 
 export default configureStore({
   reducer: {

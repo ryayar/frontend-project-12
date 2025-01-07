@@ -5,7 +5,7 @@ import filter from 'leo-profanity';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { useAddChannelMutation } from '../../store/utils/apiClient.js';
+import { useAddChannelMutation } from '../../store/apiClient.js';
 import { setSelectedChannel } from '../../store/slices/channelSlice';
 
 const AddModal = ({ data }) => {

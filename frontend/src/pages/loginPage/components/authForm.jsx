@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import { routes } from '../../../store/utils';
+import { routes } from '../../../utils';
 import { setToken, setUsername } from '../../../store/slices/authSlice';
-import { useLoginMutation } from '../../../store/utils/apiClient.js';
+import { useLoginMutation } from '../../../store/apiClient.js';
 
 const AuthForm = () => {
   const { t } = useTranslation();

@@ -13,16 +13,45 @@ import ChatPage from './pages/chatPage/chatPage.jsx';
 import LoginPage from './pages/loginPage/loginPage.jsx';
 import SignupPage from './pages/signupPage/signupPage.jsx';
 import ErrorPage from './pages/errorPage/errorPage.jsx';
-import { routes } from './store/utils';
+import { routes } from './utils';
 import ProtectedRoute from './components/protectedRoute.jsx';
-import store from './store/utils/store.js';
-import { SocketContext, socketService } from './store/utils/socketService.js';
+import store from './utils/store.js';
+import { SocketContext, socketService } from './utils/socketService.js';
+import apiClient from './store/apiClient.js';
 
 socketService.connect();
 
 const App = () => {
-  useEffect(() => () => {
-    socketService.disconnect();
+  useEffect(() => {
+    const addChannel = (newChannel) => {
+      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+        draftChannels.push(newChannel);
+      }));
+    };
+
+    const deleteChannel = ({ id }) => {
+      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+        draftChannels.filter((channel) => channel.id !== id)
+      )));
+    };
+
+    const renameChannel = (editedChannel) => {
+      store.dispatch(apiClient.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+        draftChannels
+          .filter((channel) => channel.id !== editedChannel.id)
+          .concat(editedChannel)
+      )));
+    };
+
+    socketService.on('newChannel', addChannel);
+    socketService.on('removeChannel', deleteChannel);
+    socketService.on('renameChannel', renameChannel);
+
+    return () => {
+      socketService.off('newChannel', addChannel);
+      socketService.off('removeChannel', deleteChannel);
+      socketService.off('renameChannel', renameChannel);
+    };
   }, []);
 
   i18next

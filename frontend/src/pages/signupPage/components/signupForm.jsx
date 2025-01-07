@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Tooltip from './tooltip';
 import { setToken, setUsername } from '../../../store/slices/authSlice';
-import { getNewUserSchema, routes } from '../../../store/utils';
-import { useSignupMutation } from '../../../store/utils/apiClient.js';
+import { getNewUserSchema, routes } from '../../../utils';
+import { useSignupMutation } from '../../../store/apiClient.js';
 
 const SignupForm = () => {
   const { t } = useTranslation();

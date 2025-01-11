@@ -8,7 +8,7 @@ const ErrorView = () => {
 
   return (
     <div className="text-center">
-      <PageNotFound classNames={ 'img-fluid h-25' } />
+      <PageNotFound classNames="img-fluid h-25" />
       <h1 className="h4 text-muted">{t('errorPage.pageNotFound')}</h1>
       <p className="text-muted">
         {t('errorPage.butYouCanGo')}

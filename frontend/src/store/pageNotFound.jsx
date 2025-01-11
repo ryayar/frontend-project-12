@@ -2,9 +2,9 @@ import NotFoundIcon from '../assets/NotFound.svg';
 
 const PageNotFound = ({ classNames }) => (
   <img
-    src={ NotFoundIcon }
+    src={NotFoundIcon}
     alt="Send"
-    className={ classNames }
+    className={classNames}
   />
 );
 

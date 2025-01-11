@@ -15,11 +15,11 @@ import SignupPage from './pages/signupPage/signupPage.jsx';
 import ErrorPage from './pages/errorPage/errorPage.jsx';
 import { routes } from './utils';
 import ProtectedRoute from './components/protectedRoute.jsx';
-import store from './utils/store.js';
+import store from './store/store.js';
 import { SocketContext, socketService } from './utils/socketService.js';
 import apiClient from './store/apiClient.js';
 
-socketService.connect();
+// socketService.connect();
 
 const App = () => {
   useEffect(() => {

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import SendButton from '../../../components/sendButton.jsx';
+import SendButton from '../../../store/sendButton.jsx';
 import { useAddMessageMutation } from '../../../store/apiClient.js';
 import { getSelectedChannel, getUsername } from '../../../store/slices/selectors';
 
@@ -68,7 +68,7 @@ const SendForm = () => {
             ref={input}
           />
           <button type="submit" className="btn btn-group-vertical" disabled={formik.isSubmitting || isEmpty(formik.values.message)}>
-            <SendButton color="#0d6efd" />
+            <SendButton />
             <span className="visually-hidden">{t('chatPage.send')}</span>
           </button>
         </div>
